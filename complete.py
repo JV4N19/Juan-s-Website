@@ -149,43 +149,19 @@ if page == "👤 My Profile":
 elif page == "🧮 Calculator":
 
     st.title("🧮 Calculator")
-    st.write("Use the buttons below like a normal calculator!")
 
-    # Calculator memory
-    if "calc_display" not in st.session_state:
-        st.session_state.calc_display = "0"
+    # Calculator display
+    if "calculator" not in st.session_state:
+        st.session_state.calculator = ""
 
-    if "calc_first" not in st.session_state:
-        st.session_state.calc_first = None
-
-    if "calc_operator" not in st.session_state:
-        st.session_state.calc_operator = None
-
-    if "calc_new_number" not in st.session_state:
-        st.session_state.calc_new_number = False
-
-    # Function for number buttons
-    def add_number(number):
-        if st.session_state.calc_new_number:
-            st.session_state.calc_display = number
-            st.session_state.calc_new_number = False
-        elif st.session_state.calc_display == "0":
-            st.session_state.calc_display = number
-        else:
-            st.session_state.calc_display += number
-
-    # Function for operators
-    def set_operator(operator):
-        st.session_state.calc_first = float(
-            st.session_state.calc_display
-        )
-        st.session_state.calc_operator = operator
-        st.session_state.calc_new_number = True
+    # Function to add something to the calculator
+    def add_to_calculator(value):
+        st.session_state.calculator += value
 
     # Display
     st.text_input(
         "Display",
-        value=st.session_state.calc_display,
+        value=st.session_state.calculator,
         disabled=True,
         key="calculator_display"
     )
@@ -193,124 +169,108 @@ elif page == "🧮 Calculator":
     st.write("")
 
     # Row 1
-    col1, col2, col3, col4 = st.columns(4)
+    c1, c2, c3, c4 = st.columns(4)
 
-    with col1:
-        if st.button("7", key="calc_7", use_container_width=True):
-            add_number("7")
+    with c1:
+        if st.button("7", key="button7", use_container_width=True):
+            add_to_calculator("7")
 
-    with col2:
-        if st.button("8", key="calc_8", use_container_width=True):
-            add_number("8")
+    with c2:
+        if st.button("8", key="button8", use_container_width=True):
+            add_to_calculator("8")
 
-    with col3:
-        if st.button("9", key="calc_9", use_container_width=True):
-            add_number("9")
+    with c3:
+        if st.button("9", key="button9", use_container_width=True):
+            add_to_calculator("9")
 
-    with col4:
-        if st.button("÷", key="calc_divide", use_container_width=True):
-            set_operator("/")
+    with c4:
+        if st.button("÷", key="buttondivide", use_container_width=True):
+            add_to_calculator("/")
 
     # Row 2
-    col1, col2, col3, col4 = st.columns(4)
+    c1, c2, c3, c4 = st.columns(4)
 
-    with col1:
-        if st.button("4", key="calc_4", use_container_width=True):
-            add_number("4")
+    with c1:
+        if st.button("4", key="button4", use_container_width=True):
+            add_to_calculator("4")
 
-    with col2:
-        if st.button("5", key="calc_5", use_container_width=True):
-            add_number("5")
+    with c2:
+        if st.button("5", key="button5", use_container_width=True):
+            add_to_calculator("5")
 
-    with col3:
-        if st.button("6", key="calc_6", use_container_width=True):
-            add_number("6")
+    with c3:
+        if st.button("6", key="button6", use_container_width=True):
+            add_to_calculator("6")
 
-    with col4:
-        if st.button("×", key="calc_multiply", use_container_width=True):
-            set_operator("*")
+    with c4:
+        if st.button("×", key="buttonmultiply", use_container_width=True):
+            add_to_calculator("*")
 
     # Row 3
-    col1, col2, col3, col4 = st.columns(4)
+    c1, c2, c3, c4 = st.columns(4)
 
-    with col1:
-        if st.button("1", key="calc_1", use_container_width=True):
-            add_number("1")
+    with c1:
+        if st.button("1", key="button1", use_container_width=True):
+            add_to_calculator("1")
 
-    with col2:
-        if st.button("2", key="calc_2", use_container_width=True):
-            add_number("2")
+    with c2:
+        if st.button("2", key="button2", use_container_width=True):
+            add_to_calculator("2")
 
-    with col3:
-        if st.button("3", key="calc_3", use_container_width=True):
-            add_number("3")
+    with c3:
+        if st.button("3", key="button3", use_container_width=True):
+            add_to_calculator("3")
 
-    with col4:
-        if st.button("−", key="calc_minus", use_container_width=True):
-            set_operator("-")
+    with c4:
+        if st.button("−", key="buttonminus", use_container_width=True):
+            add_to_calculator("-")
 
     # Row 4
-    col1, col2, col3, col4 = st.columns(4)
+    c1, c2, c3, c4 = st.columns(4)
 
-    with col1:
-        if st.button("0", key="calc_0", use_container_width=True):
-            add_number("0")
+    with c1:
+        if st.button("0", key="button0", use_container_width=True):
+            add_to_calculator("0")
 
-    with col2:
-        if st.button(".", key="calc_decimal", use_container_width=True):
-            if "." not in st.session_state.calc_display:
-                st.session_state.calc_display += "."
+    with c2:
+        if st.button(".", key="buttondecimal", use_container_width=True):
+            add_to_calculator(".")
 
-    with col3:
-        if st.button("C", key="calc_clear", use_container_width=True):
-            st.session_state.calc_display = "0"
-            st.session_state.calc_first = None
-            st.session_state.calc_operator = None
-            st.session_state.calc_new_number = False
+    with c3:
+        if st.button("C", key="buttonclear", use_container_width=True):
+            st.session_state.calculator = ""
 
-    with col4:
-        if st.button("+", key="calc_plus", use_container_width=True):
-            set_operator("+")
+    with c4:
+        if st.button("+", key="buttonplus", use_container_width=True):
+            add_to_calculator("+")
 
-    # Equals button
-    if st.button("=", key="calc_equals", use_container_width=True):
+    # Equals
+    if st.button("=", key="buttonequals", use_container_width=True):
 
-        if (
-            st.session_state.calc_first is not None
-            and st.session_state.calc_operator is not None
-        ):
+        try:
+            expression = st.session_state.calculator
 
-            first = st.session_state.calc_first
-            second = float(st.session_state.calc_display)
-            operator = st.session_state.calc_operator
+            # Only allow calculator characters
+            allowed = "0123456789+-*/. "
 
-            if operator == "+":
-                result = first + second
+            if all(character in allowed for character in expression):
 
-            elif operator == "-":
-                result = first - second
+                answer = eval(expression, {"__builtins__": None}, {})
 
-            elif operator == "*":
-                result = first * second
+                if isinstance(answer, float) and answer.is_integer():
+                    answer = int(answer)
 
-            elif operator == "/":
-                if second == 0:
-                    st.error("❌ Cannot divide by zero!")
-                    result = None
-                else:
-                    result = first / second
+                st.session_state.calculator = str(answer)
 
-            if result is not None:
+            else:
+                st.session_state.calculator = ""
 
-                # Remove .0 from whole numbers
-                if isinstance(result, float) and result.is_integer():
-                    result = int(result)
+        except ZeroDivisionError:
+            st.error("❌ Cannot divide by zero!")
+            st.session_state.calculator = ""
 
-                st.session_state.calc_display = str(result)
-
-                st.session_state.calc_first = None
-                st.session_state.calc_operator = None
-                st.session_state.calc_new_number = True
+        except:
+            st.error("❌ Invalid calculation!")
 
 # =========================================================
 # GRADE CALCULATOR
