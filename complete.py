@@ -146,6 +146,7 @@ if page == "👤 My Profile":
                 "Please fill in all the fields!"
             )
 
+```python
 elif page == "🧮 Calculator":
 
     st.title("🧮 Calculator")
@@ -158,14 +159,16 @@ elif page == "🧮 Calculator":
     st.markdown(
         f"""
         <div style="
-            background-color: #f0f0f0;
+            background-color: black;
+            color: white;
             padding: 20px;
             border-radius: 10px;
             text-align: right;
             font-size: 32px;
             font-weight: bold;
             margin-bottom: 15px;
-            border: 1px solid #ccc;
+            border: 2px solid #555;
+            min-height: 45px;
         ">
         {st.session_state.calculator if st.session_state.calculator else "0"}
         </div>
@@ -286,6 +289,7 @@ elif page == "🧮 Calculator":
             except:
                 st.error("❌ Invalid calculation!")
                 st.session_state.calculator = ""
+```
 
 # =========================================================
 # GRADE CALCULATOR
