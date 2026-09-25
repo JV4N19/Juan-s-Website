@@ -150,127 +150,142 @@ elif page == "🧮 Calculator":
 
     st.title("🧮 Calculator")
 
-    # Calculator display
+    # Create calculator memory
     if "calculator" not in st.session_state:
         st.session_state.calculator = ""
 
-    # Function to add something to the calculator
-    def add_to_calculator(value):
-        st.session_state.calculator += value
-
-    # Display
-    st.text_input(
-        "Display",
-        value=st.session_state.calculator,
-        disabled=True,
-        key="calculator_display"
+    # ---------------- DISPLAY ----------------
+    st.markdown(
+        f"""
+        <div style="
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: right;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+        ">
+        {st.session_state.calculator if st.session_state.calculator else "0"}
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
-    st.write("")
+    # Function to add numbers/operators
+    def add_value(value):
+        st.session_state.calculator += value
 
-    # Row 1
-    c1, c2, c3, c4 = st.columns(4)
+    # ---------------- ROW 1 ----------------
+    col1, col2, col3, col4 = st.columns(4)
 
-    with c1:
-        if st.button("7", key="button7", use_container_width=True):
-            add_to_calculator("7")
+    with col1:
+        if st.button("7", key="calc7", use_container_width=True):
+            add_value("7")
 
-    with c2:
-        if st.button("8", key="button8", use_container_width=True):
-            add_to_calculator("8")
+    with col2:
+        if st.button("8", key="calc8", use_container_width=True):
+            add_value("8")
 
-    with c3:
-        if st.button("9", key="button9", use_container_width=True):
-            add_to_calculator("9")
+    with col3:
+        if st.button("9", key="calc9", use_container_width=True):
+            add_value("9")
 
-    with c4:
-        if st.button("÷", key="buttondivide", use_container_width=True):
-            add_to_calculator("/")
+    with col4:
+        if st.button("÷", key="calc_divide", use_container_width=True):
+            add_value("/")
 
-    # Row 2
-    c1, c2, c3, c4 = st.columns(4)
+    # ---------------- ROW 2 ----------------
+    col1, col2, col3, col4 = st.columns(4)
 
-    with c1:
-        if st.button("4", key="button4", use_container_width=True):
-            add_to_calculator("4")
+    with col1:
+        if st.button("4", key="calc4", use_container_width=True):
+            add_value("4")
 
-    with c2:
-        if st.button("5", key="button5", use_container_width=True):
-            add_to_calculator("5")
+    with col2:
+        if st.button("5", key="calc5", use_container_width=True):
+            add_value("5")
 
-    with c3:
-        if st.button("6", key="button6", use_container_width=True):
-            add_to_calculator("6")
+    with col3:
+        if st.button("6", key="calc6", use_container_width=True):
+            add_value("6")
 
-    with c4:
-        if st.button("×", key="buttonmultiply", use_container_width=True):
-            add_to_calculator("*")
+    with col4:
+        if st.button("×", key="calc_multiply", use_container_width=True):
+            add_value("*")
 
-    # Row 3
-    c1, c2, c3, c4 = st.columns(4)
+    # ---------------- ROW 3 ----------------
+    col1, col2, col3, col4 = st.columns(4)
 
-    with c1:
-        if st.button("1", key="button1", use_container_width=True):
-            add_to_calculator("1")
+    with col1:
+        if st.button("1", key="calc1", use_container_width=True):
+            add_value("1")
 
-    with c2:
-        if st.button("2", key="button2", use_container_width=True):
-            add_to_calculator("2")
+    with col2:
+        if st.button("2", key="calc2", use_container_width=True):
+            add_value("2")
 
-    with c3:
-        if st.button("3", key="button3", use_container_width=True):
-            add_to_calculator("3")
+    with col3:
+        if st.button("3", key="calc3", use_container_width=True):
+            add_value("3")
 
-    with c4:
-        if st.button("−", key="buttonminus", use_container_width=True):
-            add_to_calculator("-")
+    with col4:
+        if st.button("−", key="calc_minus", use_container_width=True):
+            add_value("-")
 
-    # Row 4
-    c1, c2, c3, c4 = st.columns(4)
+    # ---------------- ROW 4 ----------------
+    col1, col2, col3, col4 = st.columns(4)
 
-    with c1:
-        if st.button("0", key="button0", use_container_width=True):
-            add_to_calculator("0")
+    with col1:
+        if st.button("0", key="calc0", use_container_width=True):
+            add_value("0")
 
-    with c2:
-        if st.button(".", key="buttondecimal", use_container_width=True):
-            add_to_calculator(".")
+    with col2:
+        if st.button(".", key="calc_dot", use_container_width=True):
+            add_value(".")
 
-    with c3:
-        if st.button("C", key="buttonclear", use_container_width=True):
+    with col3:
+        if st.button("C", key="calc_clear", use_container_width=True):
             st.session_state.calculator = ""
 
-    with c4:
-        if st.button("+", key="buttonplus", use_container_width=True):
-            add_to_calculator("+")
+    with col4:
+        if st.button("+", key="calc_plus", use_container_width=True):
+            add_value("+")
 
-    # Equals
-    if st.button("=", key="buttonequals", use_container_width=True):
+    # ---------------- EQUALS ----------------
+    if st.button("=", key="calc_equals", use_container_width=True):
 
-        try:
-            expression = st.session_state.calculator
+        expression = st.session_state.calculator
 
-            # Only allow calculator characters
-            allowed = "0123456789+-*/. "
+        if expression:
 
-            if all(character in allowed for character in expression):
+            try:
+                # Only allow calculator characters
+                allowed = "0123456789+-*/. "
 
-                answer = eval(expression, {"__builtins__": None}, {})
+                if not all(char in allowed for char in expression):
+                    raise ValueError
 
+                answer = eval(
+                    expression,
+                    {"__builtins__": None},
+                    {}
+                )
+
+                # Make 10.0 display as 10
                 if isinstance(answer, float) and answer.is_integer():
                     answer = int(answer)
 
                 st.session_state.calculator = str(answer)
 
-            else:
+            except ZeroDivisionError:
+                st.error("❌ Cannot divide by zero!")
                 st.session_state.calculator = ""
 
-        except ZeroDivisionError:
-            st.error("❌ Cannot divide by zero!")
-            st.session_state.calculator = ""
-
-        except:
-            st.error("❌ Invalid calculation!")
+            except:
+                st.error("❌ Invalid calculation!")
+                st.session_state.calculator = ""
 
 # =========================================================
 # GRADE CALCULATOR
