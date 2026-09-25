@@ -297,9 +297,7 @@ elif page == "📊 Grade Calculator":
 
     st.title("📊 Grade Calculator")
 
-    st.write(
-        "Enter your subjects and grades below."
-    )
+    st.write("Enter your subjects and grades below.")
 
     number_of_subjects = st.number_input(
         "Number of subjects",
@@ -313,12 +311,13 @@ elif page == "📊 Grade Calculator":
 
     st.write("---")
 
+    # ---------------- SUBJECTS AND GRADES ----------------
+
     for i in range(number_of_subjects):
 
         col1, col2 = st.columns(2)
 
         with col1:
-
             subject_name = st.text_input(
                 f"Subject {i + 1}",
                 value=f"Subject {i + 1}",
@@ -326,20 +325,19 @@ elif page == "📊 Grade Calculator":
             )
 
         with col2:
-
             grade = st.number_input(
-                f"Grade",
+                "Grade",
                 min_value=0.0,
                 max_value=100.0,
                 value=0.0,
                 key=f"grade_{i}"
             )
 
-        grades.append(
-            (subject_name, grade)
-        )
+        grades.append((subject_name, grade))
 
     st.write("---")
+
+    # ---------------- CALCULATE ----------------
 
     if st.button(
         "📊 Calculate Grades",
@@ -350,14 +348,19 @@ elif page == "📊 Grade Calculator":
             grade for subject, grade in grades
         )
 
+        # Exact average out of 100
         average = total / number_of_subjects
 
-        # GPA calculation
+        # Exact GPA out of 4.00
         gpa = average / 25
+
+        # Make sure GPA never goes above 4.00
+        gpa = min(gpa, 4.00)
+
+        # ---------------- RESULTS ----------------
 
         st.subheader("📋 Results")
 
-        # Results box
         with st.container(border=True):
 
             st.write("### Your Grades")
@@ -365,22 +368,25 @@ elif page == "📊 Grade Calculator":
             for subject_name, grade in grades:
 
                 st.write(
-                    f"📚 **{subject_name}:** {grade:.1f}"
+                    f"📚 **{subject_name}:** {grade:.2f} / 100"
                 )
 
             st.write("---")
 
+            # Average / 100
             st.metric(
                 "Average",
-                f"{average:.1f}"
+                f"{average:.2f} / 100"
             )
 
+            # Exact GPA / 4
             st.metric(
                 "GPA",
                 f"{gpa:.2f} / 4.00"
             )
 
-        # Feedback
+        # ---------------- FEEDBACK ----------------
+
         if average >= 90:
 
             st.success(
@@ -410,6 +416,7 @@ elif page == "📊 Grade Calculator":
             st.error(
                 "📚 Keep studying and don't give up!"
             )
+
 
 # =========================================================
 # QUIZ MASTER
