@@ -146,7 +146,6 @@ if page == "👤 My Profile":
                 "Please fill in all the fields!"
             )
 
-```python
 elif page == "🧮 Calculator":
 
     st.title("🧮 Calculator")
