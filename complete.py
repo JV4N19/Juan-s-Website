@@ -288,7 +288,6 @@ elif page == "🧮 Calculator":
             except:
                 st.error("❌ Invalid calculation!")
                 st.session_state.calculator = ""
-```
 
 # =========================================================
 # GRADE CALCULATOR
